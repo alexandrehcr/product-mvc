@@ -2,10 +2,43 @@ html {
     font-family: "Gill Sans", sans-serif;
 }
 
-input[type="submit"], input[type="radio"], button[type="button"] {
+input[type="submit"], input[type="radio"] {
     cursor: pointer;
 }
 
-button {
-    margin: 10px;
+.button {
+    cursor: pointer;
+    background-color: #282A35;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+}
+
+.nav-bar {
+    background-color: #0B253E;
+    overflow: hidden;
+}
+
+.nav-bar a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 10px 15px;
+    font-size: 15px;
+    text-decoration: none;
+}
+
+.nav-bar a:hover, .button:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.nav-bar a.active {
+  background-color: #CEE5F2;
+  color: black;
+}
+
+.page-title {
+    color: #0B253E;
 }

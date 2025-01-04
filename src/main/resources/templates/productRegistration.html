@@ -8,26 +8,32 @@
     <link rel="stylesheet" th:href="@{/productRegistration.css}">
 </head>
 <body>
-    <h1>Cadastrar Produto</h1>
-    <form method="post" th:action="@{/products/register}" th:object="${productDto}" class="form-style">
+<div class="nav-bar">
+    <a th:href="@{/products/catalogue}">Listagem de produtos</a>
+    <a class="active" th:href="@{/products/register}">Cadastrar produto</a>
+</div>
+    <h1 class="page-title">Cadastrar Produto</h1>
+    <form method="post" th:action="@{/products/register}" th:object="${productDto}">
         <div class="form-style">
-            <label>Nome: </label>
+            <label>Nome</label>
             <span th:if="${#fields.hasErrors('name')}" style="color: red;">
                 <div th:each="err : ${#fields.errors('name')}" th:text="${err}"></div>
             </span>
-            <textarea th:field="*{name}"></textarea>
+            <textarea maxlength="100" placeholder="Nome do produto. Até 100 caracteres." 
+                      th:field="*{name}"></textarea>
         </div>
 
         <div class="form-style">
-            <label>Descrição: </label>
+            <label>Descrição</label>
             <span th:if="${#fields.hasErrors('description')}" style="color: red;">
                 <div th:each="err : ${#fields.errors('description')}" th:text="${err}"></div>
             </span>
-            <textarea th:field="*{description}"></textarea>
+            <textarea maxlength="1000" placeholder="Descrição do produto. Até 1000 caracteres." 
+                      th:field="*{description}"></textarea>
         </div>
 
         <div class="form-style">
-            <label>Preço: </label>
+            <label>Preço</label>
             <span th:if="${#fields.hasErrors('price')}" style="color: red;">
                 <div th:each="err : ${#fields.errors('price')}" th:text="${err}"></div>
             </span>
@@ -36,7 +42,7 @@
         </div>
 
         <div class="form-style" style="display: table;">
-            <label>Disponível para venda:</label>
+            <label>Disponível para venda</label>
             <label>
                 <input type="radio" th:field="*{available}" value="true" /> Sim
             </label>
@@ -46,7 +52,7 @@
         </div>
         
         <div>
-            <input type="submit" value="Salvar">
+            <input class="button" type="submit" value="Salvar">
         </div>
     </form>
 </body>

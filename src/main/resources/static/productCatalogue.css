@@ -1,26 +1,20 @@
-
 table {
     border-collapse: collapse;
     overflow: hidden;
-    /*border: 2px solid rgb(140 140 140);*/
     border-radius: 7px;
     letter-spacing: 1px;
 }
 
-
 th, td {
-    padding: 10px 12px;
+    padding: 10px 15px;
     text-align: left;
-}
-
-.column1 {
-    padding-right: 40px;
+    border-bottom: 1px solid #ddd;
 }
 
 thead, tfoot {
-    background-color: rgb(245 245 220);
+    background-color: #E8F1F2;
 }
 
 tbody > tr:nth-of-type(even) {
-    background-color: rgb(210 210 210);
-
+    background-color: #eee;
+}

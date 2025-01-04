@@ -9,33 +9,36 @@
 </head>
 
 <body>
-<h1>Listagem de produtos</h1>
-
-<div style="display: flex; align-items: flex-start;">
+<div class="nav-bar">
+    <a class="active" th:href="@{/products/catalogue}">Listagem de produtos</a>
+    <a th:href="@{/products/register}">Cadastrar produto</a>
+</div>
+<h1 class="page-title">Listagem de produtos</h1>
+<a th:href="@{/products/register}">
+    <button class="button" style="margin-bottom: 25px;">Cadastrar novo produto</button>
+</a>
+<div>
     <table>
         <thead>
         <tr>
-            <th class="column1">Nome</th>
+            <th>Nome</th>
             <th>Preço</th>
         </tr>
         </thead>
         <tbody>
-            <tr th:each="product : ${products}">
-                <td class="column1" th:text="${product.name}"></td>
-                <td th:text="${#numbers.formatCurrency(product.price)}"></td>
-            </tr>
+        <tr th:each="product : ${products}">
+            <td class="name" th:text="${product.name}"></td>
+            <td class="price" th:text="${'R$ ' + #numbers.formatDecimal(product.price, 1, 'POINT', 2, 'COMMA')}"></td>
+        </tr>
         </tbody>
         <tfoot>
             <tr>
-                <th class="column1">Produtos cadastrados</th>
-                <td th:text="${products.size()}" style="font-weight: bold;"></td>
+                <th>Produtos cadastrados</th>
+                <td th:text="${products.size()}" 
+                    style="font-weight: bold; text-align: center;"></td>
             </tr>
         </tfoot>
     </table>
-    
-    <div style="margin-left: 20px;">
-        <a th:href="@{/products/register}"><button>Registrar novo produto</button></a>
-    </div>
 </div>
 </body>
 </html>

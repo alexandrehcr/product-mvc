@@ -19,7 +19,8 @@ textarea {
 
 input[type="number"] {
     height: 25px;
-    border-radius: 3px;
+    border-radius: 5px;
+    border-width: 1px;
 }
 
 
