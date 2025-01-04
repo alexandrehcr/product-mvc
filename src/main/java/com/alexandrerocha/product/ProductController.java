@@ -1,7 +1,7 @@
 package com.alexandrerocha.product;
 
 import com.alexandrerocha.product.dto.ProductRegistrationDto;
-import com.alexandrerocha.product.repository.RuntimeRepository;
+import com.alexandrerocha.product.repository.ProductRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ProductController {
 
     @Autowired
-    RuntimeRepository repository;
+    ProductRepository repository;
     
     @GetMapping("/catalogue")
     public String listProducts(Model model) {
-        model.addAttribute("products", repository.findAllOrderByPriceAsc());
+        model.addAttribute("products", repository.findByOrderByPriceAsc());
         return "productCatalogue";
     }
     
@@ -31,16 +31,15 @@ public class ProductController {
     
     @PostMapping("/register")
     public String registerProduct(@Valid ProductRegistrationDto productRegistrationDto, Model model) {
-        var product = new Product(
-                repository.count(),
-                productRegistrationDto.getName(),
-                productRegistrationDto.getDescription(),
-                productRegistrationDto.getPrice(),
-                productRegistrationDto.getAvailable()
-        );
+        var product = ProductMapping.mapToEntity(productRegistrationDto);
         repository.save(product);
-        var products = repository.findAllOrderByPriceAsc();
+        
+        var products = repository.findByOrderByPriceAsc()
+                .stream()
+                .map(ProductMapping::mapToDto)
+                .toList();
         model.addAttribute("products", products);
+        
         return "productCatalogue";
     }
 }
