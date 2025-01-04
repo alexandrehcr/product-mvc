@@ -12,17 +12,27 @@
     <form method="post" th:action="@{/products/register}" th:object="${productDto}" class="form-style">
         <div class="form-style">
             <label>Nome: </label>
+            <span th:if="${#fields.hasErrors('name')}" style="color: red;">
+                <div th:each="err : ${#fields.errors('name')}" th:text="${err}"></div>
+            </span>
             <textarea th:field="*{name}"></textarea>
         </div>
 
         <div class="form-style">
             <label>Descrição: </label>
+            <span th:if="${#fields.hasErrors('description')}" style="color: red;">
+                <div th:each="err : ${#fields.errors('description')}" th:text="${err}"></div>
+            </span>
             <textarea th:field="*{description}"></textarea>
         </div>
 
         <div class="form-style">
             <label>Preço: </label>
-            <input type="number" min="0" step="0.01" th:field="*{price}">
+            <span th:if="${#fields.hasErrors('price')}" style="color: red;">
+                <div th:each="err : ${#fields.errors('price')}" th:text="${err}"></div>
+            </span>
+            <input type="number" min="0" step="0.01" placeholder="0" 
+                   th:field="*{price}" th:value="0.00">
         </div>
 
         <div class="form-style" style="display: table;">
