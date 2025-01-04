@@ -1,0 +1,11 @@
+html {
+    font-family: "Gill Sans", sans-serif;
+}
+
+input[type="submit"], input[type="radio"], button[type="button"] {
+    cursor: pointer;
+}
+
+button {
+    margin: 10px;
+}
