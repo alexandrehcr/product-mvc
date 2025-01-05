@@ -12,48 +12,73 @@
     <a th:href="@{/products/catalogue}">Listagem de produtos</a>
     <a class="active" th:href="@{/products/register}">Cadastrar produto</a>
 </div>
-    <h1 class="page-title">Cadastrar Produto</h1>
-    <form method="post" th:action="@{/products/register}" th:object="${productDto}">
-        <div class="form-style">
-            <label>Nome</label>
-            <span th:if="${#fields.hasErrors('name')}" style="color: red;">
-                <div th:each="err : ${#fields.errors('name')}" th:text="${err}"></div>
+<h1 class="page-title">Cadastrar Produto</h1>
+<form method="post" class="container" th:action="@{/products/register}" th:object="${productDto}">
+    <div class="row">
+        <div class="col-25">
+            <label for="prodName">Nome</label>
+        </div>
+        <div class="col-75">
+            <span th:if="${#fields.hasErrors('name')}">
+                <div style="color: red; font-size: small; padding-bottom: 5px;"
+                     th:each="err : ${#fields.errors('name')}" th:text="${err}"></div>
             </span>
-            <textarea maxlength="100" placeholder="Nome do produto. Até 100 caracteres." 
+            <textarea id="prodName" maxlength="100"
+                      placeholder="Nome do produto. Até 100 caracteres."
                       th:field="*{name}"></textarea>
         </div>
+    </div>
 
-        <div class="form-style">
-            <label>Descrição</label>
-            <span th:if="${#fields.hasErrors('description')}" style="color: red;">
-                <div th:each="err : ${#fields.errors('description')}" th:text="${err}"></div>
+    <div class="row">
+        <div class="col-25">
+            <label for="prodDescription">Descrição</label>
+        </div>
+        <div class="col-75">
+            <span th:if="${#fields.hasErrors('description')}">
+                <div style="color: red; font-size: small; padding-bottom: 5px;"
+                     th:each="err : ${#fields.errors('description')}" th:text="${err}"></div>
             </span>
-            <textarea maxlength="1000" placeholder="Descrição do produto. Até 1000 caracteres." 
+            <textarea id="prodDescription" maxlength="1000"
+                      placeholder="Descrição do produto. Até 1000 caracteres."
                       th:field="*{description}"></textarea>
         </div>
+    </div>
 
-        <div class="form-style">
-            <label>Preço</label>
-            <span th:if="${#fields.hasErrors('price')}" style="color: red;">
-                <div th:each="err : ${#fields.errors('price')}" th:text="${err}"></div>
+    <div class="row">
+        <div class="col-25">
+            <label for="prodPrice">Preço</label>
+        </div>
+        <div class="col-75">
+            <span th:if="${#fields.hasErrors('price')}">
+                <div style="color: red; font-size: small; padding-bottom: 5px;"
+                     th:each="err : ${#fields.errors('price')}" th:text="${err}"></div>
             </span>
-            <input type="number" min="0" step="0.01" placeholder="0" 
+            <input id="prodPrice" type="number" min="0" step="0.01" placeholder="0"
                    th:field="*{price}" th:value="0.00">
         </div>
+    </div>
 
-        <div class="form-style" style="display: table;">
+    <div class="row">
+        <div class="col-25" style="display: flex;">
             <label>Disponível para venda</label>
-            <label>
-                <input type="radio" th:field="*{available}" value="true" /> Sim
+        </div>
+        <div class="col-75">
+            <label for="prodAvailability-true">
+                <input id="prodAvailability-true" type="radio" th:field="*{available}" value="true"/>
+                Sim
             </label>
-            <label>
-                <input type="radio" th:field="*{available}" value="false" /> Não
+            <label for="prodAvailability-false">
+                <input id="prodAvailability-false" type="radio" th:field="*{available}" value="false"/>
+                Não
             </label>
         </div>
-        
+    </div>
+
+    <div class="row">
         <div>
             <input class="button" type="submit" value="Salvar">
         </div>
-    </form>
+    </div>
+</form>
 </body>
 </html>
