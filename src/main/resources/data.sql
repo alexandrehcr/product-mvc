@@ -2,3 +2,5 @@ INSERT INTO products (name, description, price, is_available) VALUES ('Smart TV'
 INSERT INTO products (name, description, price, is_available) VALUES ('Smartphone', 'Take the best photos', 1999.90, TRUE);
 INSERT INTO products (name, description, price, is_available) VALUES ('Laptop', 'Incredibly fast, small and elegant', 4695.99, FALSE);
 INSERT INTO products (name, description, price, is_available) VALUES ('Freezer', 'It''s really cold inside', 749.50, TRUE);
+
+ALTER TABLE products ALTER COLUMN description VARCHAR(1000);
