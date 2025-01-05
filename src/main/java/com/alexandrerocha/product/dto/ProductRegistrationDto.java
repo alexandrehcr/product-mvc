@@ -20,7 +20,7 @@ public class ProductRegistrationDto {
     @NotNull(message = "Defina um preço para o produto.")
     BigDecimal price;
 
-    boolean available;
+    boolean isAvailable;
         
 
     public String getName() {
@@ -47,11 +47,11 @@ public class ProductRegistrationDto {
         this.price = price;
     }
 
-    public boolean getAvailable() {
-        return available;
+    public boolean getIsAvailable() {
+        return isAvailable;
     }
 
-    public void setAvailable(boolean available) {
-        this.available = available;
+    public void setIsAvailable(boolean available) {
+        this.isAvailable = available;
     }
 }

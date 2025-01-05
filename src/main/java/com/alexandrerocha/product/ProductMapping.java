@@ -14,7 +14,7 @@ public final class ProductMapping {
                dto.getName(),
                dto.getDescription(),
                dto.getPrice(),
-               dto.getAvailable()
+               dto.getIsAvailable()
         );
     }
     
