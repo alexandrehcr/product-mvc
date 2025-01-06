@@ -44,7 +44,7 @@ class ProductControllerIntegrationTest {
     }
 
     @Test
-    void registerProductBadRequest() throws Exception {
+    void registerProductBadRequestWithEmptyData() throws Exception {
         mockMvc.perform(
                         post("/products/register")
                                 .contentType(APPLICATION_FORM_URLENCODED)
@@ -54,6 +54,25 @@ class ProductControllerIntegrationTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(model().hasErrors());
     }
+
+
+    @Test
+    void registerProductBadRequestWithDataBeyondLimit() throws Exception {
+        String hugeName = "ABCDE".repeat(21); // length = 105
+        String hugeDescription = "HugeDescription".repeat(67); // length = 1005
+        
+        mockMvc.perform(
+                        post("/products/register")
+                                .contentType(APPLICATION_FORM_URLENCODED)
+                                .param("name", hugeName)
+                                .param("description", hugeDescription)
+                                .param("price", "1"))
+                .andExpect(status().isBadRequest())
+                .andExpect(model().hasErrors())
+                .andExpect(model().errorCount(2));
+    }
+    
+    
 
     @Test
     void registerProductCreated() throws Exception {
