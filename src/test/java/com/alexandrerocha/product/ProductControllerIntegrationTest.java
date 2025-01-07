@@ -1,6 +1,6 @@
 package com.alexandrerocha.product;
 
-import com.alexandrerocha.product.dto.ProductRegistrationDto;
+import com.alexandrerocha.product.dto.ProductSubmissionDto;
 import com.alexandrerocha.product.repository.ProductRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,7 +76,7 @@ class ProductControllerIntegrationTest {
 
     @Test
     void registerProductCreated() throws Exception {
-        var validDto = new ProductRegistrationDto();
+        var validDto = new ProductSubmissionDto();
         validDto.setName("Test Name");
         validDto.setDescription("Test Description");
         validDto.setPrice(new BigDecimal("100.00"));

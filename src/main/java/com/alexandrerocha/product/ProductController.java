@@ -1,6 +1,7 @@
 package com.alexandrerocha.product;
 
-import com.alexandrerocha.product.dto.ProductRegistrationDto;
+import com.alexandrerocha.product.dto.ProductSubmissionDto;
+import com.alexandrerocha.product.exceptions.ProductNotFoundException;
 import com.alexandrerocha.product.repository.ProductRepository;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -10,10 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/products")
@@ -32,13 +31,12 @@ public class ProductController {
     
     @GetMapping("/register")
     public String showRegisterProductForm(Model model) {
-        model.addAttribute("productDto", new ProductRegistrationDto());
+        model.addAttribute("productDto", new ProductSubmissionDto());
         return "productRegistration";
     }
-    
+        
     @PostMapping("/register")
-    public String registerProduct(@Valid @ModelAttribute("productDto") 
-                                      ProductRegistrationDto registrationDto,
+    public String registerProduct(@Valid @ModelAttribute("productDto") ProductSubmissionDto registrationDto,
                                   BindingResult bindingResult, Model model,
                                   HttpServletResponse response) {
 
@@ -60,5 +58,47 @@ public class ProductController {
         
         response.setStatus(201);
         return "productCatalogue";
+    }
+    
+    @GetMapping("/edit/{id}")
+    public String showProductUpdatePage(@PathVariable long id, Model model) {
+        var editingProduct = repository.findById(id)
+                .map(ProductMapping::mapToProductSubmissionDto)
+                .orElseThrow(ProductNotFoundException::new);
+        
+        model.addAttribute("editingProduct", editingProduct);
+        return "productEditing";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String updateProduct(@PathVariable long id,
+                                @Valid @ModelAttribute("editingProduct") ProductSubmissionDto updatingProductDto,
+                                BindingResult bindingResult,
+                                Model model, HttpServletResponse response) {
+        var product = repository.findById(id).orElseThrow(ProductNotFoundException::new);
+        
+        if (bindingResult.hasErrors()) {
+            log.info(bindingResult.getAllErrors().toString());
+            response.setStatus(400);
+            return "productEditing";
+        }
+        
+        product = ProductMapping.mapToEntity(updatingProductDto);
+        repository.save(product);
+        model.addAttribute("notification", "Produto atualizado");
+        return "productEditing";
+    }    
+    
+    @GetMapping("/delete/{id}")
+    public String deleteProduct(@PathVariable long id, RedirectAttributes redirectAttributes){
+        repository.deleteById(id);
+        redirectAttributes.addFlashAttribute("notification", "Produto deletado");
+        return "redirect:/products/catalogue";
+    }
+    
+    @ExceptionHandler(ProductNotFoundException.class)
+    public String handleProductNotFound(ProductNotFoundException ex, Model model) {
+        model.addAttribute("message", ex.getMessage());
+        return "error/404";
     }
 }
