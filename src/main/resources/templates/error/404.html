@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="pt_BR" xmlns:th="http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Página não encontrada</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+    <div class="page-title" id="screen-centralized-div" style="margin-top: -30px;">
+        <h1 style="font-size: 100px;">404</h1>
+        <h2 th:text="${message ?: 'Página não encontrada'}"></h2>
+        <a th:href="@{/products}">
+            <button class="button">Ir para listagem de produtos</button></a>
+    </div>
+</body>
+</html>

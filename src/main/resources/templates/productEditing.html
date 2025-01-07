@@ -1,19 +1,25 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd"
       xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="UTF-8">
-    <title>Cadastro de Produtos</title>
+    <title>Edição de Produto</title>
     <link rel="stylesheet" th:href="@{/style.css}">
     <link rel="stylesheet" th:href="@{/productForm.css}">
+    
+    <script th:src="@{/functions.js}"></script>
 </head>
+
 <body>
 <div class="nav-bar">
     <a th:href="@{/products}">Listagem de produtos</a>
-    <a class="active" th:href="@{/products/register}">Cadastrar produto</a>
+    <a th:href="@{/products/register}">Cadastrar produto</a>
+    <a class="active" th:href="@{'/products/edit/' + ${editingProduct.id}}">Edição de produto</a>
 </div>
-<h1 class="page-title">Cadastrar Produto</h1>
-<form method="post" class="container" th:action="@{/products/register}" th:object="${productDto}">
+<h1 class="page-title">Edição de Produto</h1>
+<form method="post" class="container" th:action="@{/products/edit/} + ${editingProduct.id}" th:object="${editingProduct}">
+    <input type="hidden" th:field="${editingProduct.id}">
     <div class="row">
         <div class="col-25">
             <label for="prodName">Nome</label>
@@ -24,7 +30,6 @@
                      th:each="err : ${#fields.errors('name')}" th:text="${err}"></div>
             </span>
             <textarea id="prodName" maxlength="100"
-                      placeholder="Nome do produto. Até 100 caracteres."
                       th:field="*{name}"></textarea>
         </div>
     </div>
@@ -39,7 +44,6 @@
                      th:each="err : ${#fields.errors('description')}" th:text="${err}"></div>
             </span>
             <textarea id="prodDescription" maxlength="1000"
-                      placeholder="Descrição do produto. Até 1000 caracteres."
                       th:field="*{description}"></textarea>
         </div>
     </div>
@@ -53,8 +57,8 @@
                 <div style="color: red; font-size: small; padding-bottom: 5px;"
                      th:each="err : ${#fields.errors('price')}" th:text="${err}"></div>
             </span>
-            <input id="prodPrice" type="number" min="0" step="0.01" placeholder="0"
-                   th:field="*{price}" th:value="0.00">
+            <input id="prodPrice" type="number" min="0" step="0.01"
+                   th:field="*{price}">
         </div>
     </div>
 
@@ -80,5 +84,9 @@
         </div>
     </div>
 </form>
+
+<div th:if="${notification}">
+    <p class="notification" th:text="${notification}"></p>
+</div>
 </body>
 </html>

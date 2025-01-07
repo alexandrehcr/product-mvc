@@ -23,7 +23,7 @@ public class ProductController {
     @Autowired
     ProductRepository repository;
     
-    @GetMapping("/catalogue")
+    @GetMapping
     public String listProducts(Model model) {
         model.addAttribute("products", repository.findByOrderByPriceAsc());
         return "productCatalogue";
@@ -93,7 +93,7 @@ public class ProductController {
     public String deleteProduct(@PathVariable long id, RedirectAttributes redirectAttributes){
         repository.deleteById(id);
         redirectAttributes.addFlashAttribute("notification", "Produto deletado");
-        return "redirect:/products/catalogue";
+        return "redirect:/products";
     }
     
     @ExceptionHandler(ProductNotFoundException.class)

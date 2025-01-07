@@ -30,7 +30,7 @@ class ProductControllerIntegrationTest {
 
     @Test
     void listProducts() throws Exception {
-        mockMvc.perform(get("/products/catalogue"))
+        mockMvc.perform(get("/products"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("productCatalogue"))
                 .andExpect(model().attributeExists("products"));

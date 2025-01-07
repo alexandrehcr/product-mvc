@@ -2,22 +2,22 @@ html {
     font-family: "Gill Sans", sans-serif;
 }
 
-input[type="submit"], input[type="radio"] {
-    cursor: pointer;
+body {
+    background-color: #f9f9f9;
 }
 
-.button {
+.page-title {
+    color: #0B253E;
+}
+
+input[type="submit"], input[type="radio"] {
     cursor: pointer;
-    background-color: #282A35;
-    color: white;
-    padding: 10px;
-    border-radius: 4px;
-    border: none;
 }
 
 .nav-bar {
     background-color: #0B253E;
     overflow: hidden;
+    display: flex;
 }
 
 .nav-bar a {
@@ -29,16 +29,96 @@ input[type="submit"], input[type="radio"] {
     text-decoration: none;
 }
 
-.nav-bar a:hover, .button:hover {
-    background-color: #ddd;
-    color: black;
-}
-
 .nav-bar a.active {
   background-color: #CEE5F2;
   color: black;
 }
 
-.page-title {
-    color: #0B253E;
+.button-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.button-anchor {
+    text-decoration: none;
+}
+
+.button {
+    text-decoration: none;
+    cursor: pointer;
+    background-color: #0B253E;
+    color: #f9f9f9;
+    padding: 10px;
+    border-radius: 4px;
+    border: none;
+   
+}
+
+.button.edit {
+    background-color: #215e94;
+}
+
+.button.delete {
+    background-color: #d43733;
+}
+
+.button:hover, .nav-bar a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+#screen-centralized-div {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#screen-centralized-div h1 {
+    margin: 0;
+}
+
+#screen-centralized-div h2 {
+    margin-top: 5px;
+    margin-bottom: 30px;
+}
+
+.notification-container {
+    bottom: 20px;
+    right: 20px;
+    display:block;
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.5s, transform 0.5s;
+}
+
+.notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    border-radius: 4px;
+    color: #f9f9f9;
+    background-color: #00B07B;
+    padding: 15px;
+    word-wrap: break-word;
+    width: fit-content;
+    max-width: 200px;
+    opacity: 0;
+    transition: opacity .5s ease-in-out;
+    visibility: hidden;
+}
+
+.notification.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.notification.fade-out {
+    opacity: 0;
+    visibility: visible;
 }
