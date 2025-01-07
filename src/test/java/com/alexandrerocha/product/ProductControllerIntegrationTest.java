@@ -17,7 +17,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@SpringBootTest()
+@SpringBootTest
 @AutoConfigureMockMvc
 class ProductControllerIntegrationTest {
 
@@ -32,7 +32,7 @@ class ProductControllerIntegrationTest {
     void listProducts() throws Exception {
         mockMvc.perform(get("/products"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("productCatalogue"))
+                .andExpect(view().name("productListing"))
                 .andExpect(model().attributeExists("products"));
     }
 

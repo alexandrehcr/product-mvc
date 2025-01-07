@@ -26,7 +26,7 @@ public class ProductController {
     @GetMapping
     public String listProducts(Model model) {
         model.addAttribute("products", repository.findByOrderByPriceAsc());
-        return "productCatalogue";
+        return "productListing";
     }
     
     @GetMapping("/register")
@@ -57,7 +57,7 @@ public class ProductController {
         model.addAttribute("products", products);
         
         response.setStatus(201);
-        return "productCatalogue";
+        return "productListing";
     }
     
     @GetMapping("/edit/{id}")
