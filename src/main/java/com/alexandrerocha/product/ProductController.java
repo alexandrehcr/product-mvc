@@ -14,6 +14,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Optional;
+
+import static jakarta.servlet.http.HttpServletResponse.*;
+
 @Controller
 @RequestMapping("/products")
 public class ProductController {
@@ -42,7 +46,7 @@ public class ProductController {
 
         if (bindingResult.hasErrors()) {
             log.info(bindingResult.getAllErrors().toString());
-            response.setStatus(400);
+            response.setStatus(SC_BAD_REQUEST);
             return "productRegistration";
         }
         
@@ -54,7 +58,7 @@ public class ProductController {
                 .map(ProductMapping::mapToDto)
                 .toList();
 
-        response.setStatus(201);
+        response.setStatus(SC_CREATED);
         model.addAttribute("products", products);
         model.addAttribute("notification", "Produto cadastrado");
         return "productListing";
@@ -75,29 +79,34 @@ public class ProductController {
                                 @Valid @ModelAttribute("editingProduct") ProductSubmissionDto updatingProductDto,
                                 BindingResult bindingResult,
                                 Model model, HttpServletResponse response) {
+        
         var product = repository.findById(id).orElseThrow(ProductNotFoundException::new);
         
         if (bindingResult.hasErrors()) {
             log.info(bindingResult.getAllErrors().toString());
-            response.setStatus(400);
+            response.setStatus(SC_BAD_REQUEST);
             return "productEditing";
         }
         
         product = ProductMapping.mapToEntity(updatingProductDto);
         repository.save(product);
+        
         model.addAttribute("notification", "Produto atualizado");
         return "productEditing";
     }    
     
     @GetMapping("/delete/{id}")
     public String deleteProduct(@PathVariable long id, RedirectAttributes redirectAttributes){
-        repository.deleteById(id);
+        var product = repository.findById(id)
+                .orElseThrow(() -> new ProductNotFoundException("Produto não encontrado"));
+        repository.delete(product);
         redirectAttributes.addFlashAttribute("notification", "Produto deletado");
         return "redirect:/products";
     }
     
     @ExceptionHandler(ProductNotFoundException.class)
-    public String handleProductNotFound(ProductNotFoundException ex, Model model) {
+    public String handleProductNotFound(ProductNotFoundException ex, Model model, HttpServletResponse response) {
+        response.setStatus(SC_NOT_FOUND);
         model.addAttribute("message", ex.getMessage());
         return "error/404";
     }
