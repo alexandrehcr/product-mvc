@@ -53,10 +53,10 @@ public class ProductController {
                 .stream()
                 .map(ProductMapping::mapToDto)
                 .toList();
-        
-        model.addAttribute("products", products);
-        
+
         response.setStatus(201);
+        model.addAttribute("products", products);
+        model.addAttribute("notification", "Produto cadastrado");
         return "productListing";
     }
     
