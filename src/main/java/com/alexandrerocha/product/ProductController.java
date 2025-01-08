@@ -1,8 +1,7 @@
 package com.alexandrerocha.product;
 
-import com.alexandrerocha.product.dto.ProductSubmissionDto;
+import com.alexandrerocha.product.dto.ProductValidationDto;
 import com.alexandrerocha.product.exceptions.ProductNotFoundException;
-import com.alexandrerocha.product.repository.ProductRepository;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
@@ -14,8 +13,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.Optional;
-
 import static jakarta.servlet.http.HttpServletResponse.*;
 
 @Controller
@@ -23,24 +20,24 @@ import static jakarta.servlet.http.HttpServletResponse.*;
 public class ProductController {
 
     private static final Logger log = LoggerFactory.getLogger(ProductController.class);
-    
+
     @Autowired
-    ProductRepository repository;
+    ProductService service;
     
     @GetMapping
     public String listProducts(Model model) {
-        model.addAttribute("products", repository.findByOrderByPriceAsc());
+        model.addAttribute("products", service.getAllOrderedByPriceAsc());
         return "productListing";
     }
     
     @GetMapping("/register")
     public String showRegisterProductForm(Model model) {
-        model.addAttribute("productDto", new ProductSubmissionDto());
+        model.addAttribute("productDto", new ProductValidationDto());
         return "productRegistration";
     }
         
     @PostMapping("/register")
-    public String registerProduct(@Valid @ModelAttribute("productDto") ProductSubmissionDto registrationDto,
+    public String registerProduct(@Valid @ModelAttribute("productDto") ProductValidationDto registrationDto,
                                   BindingResult bindingResult, Model model,
                                   HttpServletResponse response) {
 
@@ -49,14 +46,8 @@ public class ProductController {
             response.setStatus(SC_BAD_REQUEST);
             return "productRegistration";
         }
-        
-        var product = ProductMapping.mapToEntity(registrationDto);
-        repository.save(product);
-        
-        var products = repository.findByOrderByPriceAsc()
-                .stream()
-                .map(ProductMapping::mapToDto)
-                .toList();
+        service.saveProduct(registrationDto);
+        var products = service.getAllOrderedByPriceAsc();
 
         response.setStatus(SC_CREATED);
         model.addAttribute("products", products);
@@ -66,21 +57,19 @@ public class ProductController {
     
     @GetMapping("/edit/{id}")
     public String showProductUpdatePage(@PathVariable long id, Model model) {
-        var editingProduct = repository.findById(id)
-                .map(ProductMapping::mapToProductSubmissionDto)
-                .orElseThrow(ProductNotFoundException::new);
-        
+        var editingProduct = service.getProductForUpdate(id);
         model.addAttribute("editingProduct", editingProduct);
         return "productEditing";
     }
 
     @PostMapping("/edit/{id}")
     public String updateProduct(@PathVariable long id,
-                                @Valid @ModelAttribute("editingProduct") ProductSubmissionDto updatingProductDto,
+                                @Valid @ModelAttribute("editingProduct") ProductValidationDto updatingProductDto,
                                 BindingResult bindingResult,
                                 Model model, HttpServletResponse response) {
         
-        var product = repository.findById(id).orElseThrow(ProductNotFoundException::new);
+        // checks for product existence before handle validation
+        service.getProduct(id); 
         
         if (bindingResult.hasErrors()) {
             log.info(bindingResult.getAllErrors().toString());
@@ -88,18 +77,14 @@ public class ProductController {
             return "productEditing";
         }
         
-        product = ProductMapping.mapToEntity(updatingProductDto);
-        repository.save(product);
-        
+        service.updateProduct(id, updatingProductDto);
         model.addAttribute("notification", "Produto atualizado");
         return "productEditing";
     }    
     
     @GetMapping("/delete/{id}")
     public String deleteProduct(@PathVariable long id, RedirectAttributes redirectAttributes){
-        var product = repository.findById(id)
-                .orElseThrow(() -> new ProductNotFoundException("Produto não encontrado"));
-        repository.delete(product);
+        service.delete(id);
         redirectAttributes.addFlashAttribute("notification", "Produto deletado");
         return "redirect:/products";
     }

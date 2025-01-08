@@ -7,7 +7,7 @@ import org.hibernate.validator.constraints.Length;
 
 import java.math.BigDecimal;
 
-public class ProductSubmissionDto {
+public class ProductValidationDto {
     private Long id;
 
     @NotBlank(message = "O nome do produto não pode ser vazio.")
@@ -25,10 +25,10 @@ public class ProductSubmissionDto {
     private boolean isAvailable;
 
 
-    public ProductSubmissionDto() {
+    public ProductValidationDto() {
     }
 
-    public ProductSubmissionDto(Long id, String name, String description, BigDecimal price, boolean isAvailable) {
+    public ProductValidationDto(Long id, String name, String description, BigDecimal price, boolean isAvailable) {
         this.id = id;
         this.name = name;
         this.description = description;

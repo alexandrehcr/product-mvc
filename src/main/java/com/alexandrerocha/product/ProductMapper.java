@@ -1,14 +1,14 @@
 package com.alexandrerocha.product;
 
 import com.alexandrerocha.product.dto.ProductDto;
-import com.alexandrerocha.product.dto.ProductSubmissionDto;
+import com.alexandrerocha.product.dto.ProductValidationDto;
 
-public final class ProductMapping {
+public final class ProductMapper {
 
-    private ProductMapping() {
+    private ProductMapper() {
     }
 
-    public static Product mapToEntity(ProductSubmissionDto dto) {
+    public static Product mapToEntity(ProductValidationDto dto) {
         return new Product(
                 dto.getId(),
                 dto.getName(),
@@ -27,8 +27,8 @@ public final class ProductMapping {
                 product.getIsAvailable());
     }
 
-    public static ProductSubmissionDto mapToProductSubmissionDto(Product product) {
-        return new ProductSubmissionDto(
+    public static ProductValidationDto mapToProductValidationDto(Product product) {
+        return new ProductValidationDto(
                 product.getId(),
                 product.getName(),
                 product.getDescription(),

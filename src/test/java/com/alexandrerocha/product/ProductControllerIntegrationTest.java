@@ -1,6 +1,6 @@
 package com.alexandrerocha.product;
 
-import com.alexandrerocha.product.dto.ProductSubmissionDto;
+import com.alexandrerocha.product.dto.ProductValidationDto;
 import com.alexandrerocha.product.repository.ProductRepository;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,7 +78,7 @@ class ProductControllerIntegrationTest {
 
     @Test
     void registerProduct_ValidInputs() throws Exception {
-        var validDto = new ProductSubmissionDto();
+        var validDto = new ProductValidationDto();
         validDto.setName("Test Name");
         validDto.setDescription("Test Description");
         validDto.setPrice(new BigDecimal("100.00"));
@@ -130,7 +130,7 @@ class ProductControllerIntegrationTest {
         
         @Test
         void updateProduct_validInputs() throws Exception {
-            var updatedProductDto = ProductMapping.mapToProductSubmissionDto(saved);
+            var updatedProductDto = ProductMapper.mapToProductValidationDto(saved);
             updatedProductDto.setName("Updated Test Name");
             updatedProductDto.setDescription("Updated Description");
             updatedProductDto.setPrice(new BigDecimal("321.00"));
@@ -152,7 +152,7 @@ class ProductControllerIntegrationTest {
         
         @Test
         void updateProduct_InputTooLarge_BadRequest() throws Exception {
-            var invalidProductDto = new ProductSubmissionDto();
+            var invalidProductDto = new ProductValidationDto();
             invalidProductDto.setName(INVALID_HUGE_NAME);
             invalidProductDto.setDescription(INVALID_HUGE_DESCRIPTION);
 
