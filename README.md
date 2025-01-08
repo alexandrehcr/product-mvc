@@ -1,7 +1,46 @@
 # Descrição do projeto
 
-Para esse desafio eu utilizei Java 17 e os frameworks:
+Esse projeto é um CRUD com arquitetura MVC.
 
+- A página de listagem ordena os produtos por preço ascendentemente,
+  e cada registro pode ser editado ou deletado.
+
+- Ao clicar em uma linha, a descrição do respectivo produto é exibida.
+
+  <img src="ReadMeImages/products-listing.png" width="650px"/>
+
+- Os dados inseridos são validados na criação e atualização de produtos:
+  <table>
+    <tr>
+      <td>
+      <img src="ReadMeImages/form-small-screens.png" width="350px"/>
+      </td>
+      <td>
+      <img src="ReadMeImages/form-validation.png" width="350px"/>
+      </td>
+    </tr>
+  </table>
+
+- Ao atualizar ou cadastrar, uma notificação é exibida
+  no canto inferior direito da tela por alguns segundos:
+    <table>
+      <tr>
+        <td>
+        <img src="ReadMeImages/product-update.png" width="350px"/>
+        </td>
+        <td>
+        <img src="ReadMeImages/product-creation-notification.png" width="350px"/>
+        </td>
+      </tr>
+    </table>
+
+- O usuário é redirecionado para a página de listagem quando um produto é cadastrado.
+  Para que o usuário possa verificar as informações salvas, o redirecionamento não ocorre em
+  atualizações de produto.
+
+# Stack
+
+- Java 17;
 - Spring Web para lidar com as requisições e o padrão MVC;
 - Spring Data com banco de dados em memória H2 para o armazenamento de dados, pela facilidade e
   praticidade em situações de teste e demonstração;
@@ -14,49 +53,19 @@ Para esse desafio eu utilizei Java 17 e os frameworks:
 
 # Decisões de arquitetura e projeto
 
-- Pela simplicidade do projeto, não criei perfis de desenvolvimento diferentes (produção e
-  teste);
-- O banco de dados persiste as entidades temporariamente, durante a execução do programa.
-  Entretanto, o script [data.sql](src/main/resources/data.sql) inicializa o banco de dados com
+- Pela natureza demonstrativa do projeto, eu não criei perfis de desenvolvimento diferentes
+  (produção e teste);
+- O banco de dados persiste as entidades apenas durante a execução do programa.
+  Entretanto, o script [data.sql](src/main/resources/data.sql) inicializa o BD com
   alguns registros para ser possível a visualização da listagem dos produtos logo ao iniciar a
   aplicação;
-- Devido à simplicidade da lógica de negócio, não criei uma camada de serviço para lidar com a
-  lógica e armazenamento no banco de dados;
-- DTOs foram utilizados validar os dados fornecidos pelo usuário, bem como para não retornar a
+- DTOs são utilizados validar os dados fornecidos pelo usuário, bem como para não retornar a
   entidade de persistência;
-- As URIs foram nomeadas seguindo convenções do estilo REST.
-
-# Funcionalidades
-
-- Páginas de cadastro e de listagem de produtos;
-- O cadastro do produto solicita os dados: nome, descrição, valor e a disponibilidade para venda;
-- Ao cadastrar um produto, o usuário é redirecionado para a página de listagem;
-- A listagem contém uma tabela com duas colunas, nome e valor, e é ordenada por valor de maneira
-  ascendente. A página também possui um botão para cadastrar um novo produto, redirecionando o
-  usuário para a página de cadastro de produtos.
-
-<table>
-  <tr>
-    <td>
-    <img src="ReadMeImages/products-listing.png" width="400px"/>
-    </td>
-    <td>
-    <img src="ReadMeImages/form-small-screens.png" width="400px"/>
-    </td>
-    <td>
-    <img src="ReadMeImages/form-validation.png" width="400px"/>
-    </td>
-  </tr>
-</table>
 
 # Como eu aprimoraria a partir daqui
 
-Adicionaria as funcionalidades de:
-
 - Cache, pois, atualmente, o banco de dados é consultado em cada requisição feita na página
   de listagem, ainda que nenhum produto tenha sido adicionado;
-- Paginação e ordenação por coluna na página de listagem;
-- Atualização e deleção de produtos;
-- Expansão da tabela de listagem de produtos para exibir mais informações.
+- Paginação e ordenação por coluna na página de listagem.
 
 
