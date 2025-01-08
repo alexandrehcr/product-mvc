@@ -1,6 +1,6 @@
-package com.alexandrerocha.product.repository;
+package com.alexandrerocha.repository;
 
-import com.alexandrerocha.product.Product;
+import com.alexandrerocha.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

@@ -1,7 +1,8 @@
-package com.alexandrerocha.product;
+package com.alexandrerocha.util;
 
-import com.alexandrerocha.product.dto.ProductDto;
-import com.alexandrerocha.product.dto.ProductValidationDto;
+import com.alexandrerocha.entity.Product;
+import com.alexandrerocha.entity.dto.ProductDto;
+import com.alexandrerocha.entity.dto.ProductValidationDto;
 
 public final class ProductMapper {
 

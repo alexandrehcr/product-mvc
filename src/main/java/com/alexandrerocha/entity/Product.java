@@ -1,4 +1,4 @@
-package com.alexandrerocha.product;
+package com.alexandrerocha.entity;
 
 import jakarta.persistence.*;
 

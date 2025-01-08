@@ -1,7 +1,9 @@
 package com.alexandrerocha.product;
 
-import com.alexandrerocha.product.dto.ProductValidationDto;
-import com.alexandrerocha.product.repository.ProductRepository;
+import com.alexandrerocha.entity.Product;
+import com.alexandrerocha.util.ProductMapper;
+import com.alexandrerocha.entity.dto.ProductValidationDto;
+import com.alexandrerocha.repository.ProductRepository;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;

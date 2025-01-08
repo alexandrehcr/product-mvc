@@ -1,4 +1,4 @@
-package com.alexandrerocha.product.dto;
+package com.alexandrerocha.entity.dto;
 
 import java.math.BigDecimal;
 

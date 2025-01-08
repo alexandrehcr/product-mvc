@@ -1,9 +1,11 @@
-package com.alexandrerocha.product;
+package com.alexandrerocha.service;
 
-import com.alexandrerocha.product.dto.ProductDto;
-import com.alexandrerocha.product.dto.ProductValidationDto;
-import com.alexandrerocha.product.exceptions.ProductNotFoundException;
-import com.alexandrerocha.product.repository.ProductRepository;
+import com.alexandrerocha.entity.Product;
+import com.alexandrerocha.entity.dto.ProductDto;
+import com.alexandrerocha.entity.dto.ProductValidationDto;
+import com.alexandrerocha.exceptions.ProductNotFoundException;
+import com.alexandrerocha.repository.ProductRepository;
+import com.alexandrerocha.util.ProductMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

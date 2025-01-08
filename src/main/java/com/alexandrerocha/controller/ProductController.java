@@ -1,7 +1,8 @@
-package com.alexandrerocha.product;
+package com.alexandrerocha.controller;
 
-import com.alexandrerocha.product.dto.ProductValidationDto;
-import com.alexandrerocha.product.exceptions.ProductNotFoundException;
+import com.alexandrerocha.exceptions.ProductNotFoundException;
+import com.alexandrerocha.service.ProductService;
+import com.alexandrerocha.entity.dto.ProductValidationDto;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;

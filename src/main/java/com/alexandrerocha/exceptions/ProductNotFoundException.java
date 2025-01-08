@@ -1,4 +1,4 @@
-package com.alexandrerocha.product.exceptions;
+package com.alexandrerocha.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

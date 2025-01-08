@@ -1,4 +1,4 @@
-package com.alexandrerocha.product.dto;
+package com.alexandrerocha.entity.dto;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
