@@ -9,9 +9,16 @@ table {
 }
 
 th, td {
-    padding: 10px 15px;
     text-align: left;
     border-bottom: 1px solid #ddd;
+}
+
+th {
+    padding: 10px 15px;
+}
+
+td {
+    padding: 4px 15px;
 }
 
 thead, tfoot {
@@ -19,11 +26,29 @@ thead, tfoot {
 }
 
 .description-row td {
-    padding-left: 40px;
+    padding-left: 15px;
     background-color: #f2f2f2;
 }
 
 tbody > tr:hover {
     background-color: #f2f2f2;
     cursor: pointer;
+}
+
+.management-record-button-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+}
+
+.button.edit {
+    background-color: #215e94;
+}
+
+.button.delete {
+    background-color: #d43733;
+}
+
+button.edit, button.delete {
+    padding: 8px;
 }

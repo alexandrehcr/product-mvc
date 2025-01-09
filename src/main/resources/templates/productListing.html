@@ -20,6 +20,7 @@
 <table>
     <thead>
     <tr>
+        <th>ID</th>
         <th>Nome</th>
         <th>Preço</th>
         <th>Disponibilidade</th>
@@ -29,11 +30,12 @@
     <tbody>
     <th:block th:each="product : ${products}">
         <tr onclick="toggleRow(this.nextElementSibling)" style="cursor: pointer;">
+            <td th:text="${product.id}"></td>
             <td th:text="${product.name}"></td>
             <td th:text="${'R$ ' + #numbers.formatDecimal(product.price, 1, 'POINT', 2, 'COMMA')}"></td>
             <td th:text="${product.isAvailable} ? 'DISPONÍVEL' : 'INDISPONÍVEL'"></td>
             <td>
-                <div class="button-container">
+                <div class="management-record-button-container">
                     <a class="button-anchor" th:href="@{/products/edit/} + ${product.id}">
                         <button class="button edit" onclick="event.stopPropagation();">
                             Editar
@@ -50,7 +52,7 @@
             </td>
         </tr>
         <tr class="description-row" style="display: none;">
-            <td colspan="4">
+            <td colspan="5">
                 <p style="font-size: small; color: DimGray;">Descrição do produto</p>
                 <p th:text="${product.description}"></p>
             </td>
@@ -59,7 +61,7 @@
     </tbody>
     <tfoot>
     <tr>
-        <th colspan="4" style="text-align: left;"
+        <th colspan="5" style="text-align: left;"
             th:text="'Produtos cadastrados: ' + ${products.size()}"></th>
     </tr>
     </tfoot>

@@ -34,12 +34,6 @@ input[type="submit"], input[type="radio"] {
   color: black;
 }
 
-.button-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-}
-
 .button-anchor {
     text-decoration: none;
 }
@@ -53,14 +47,6 @@ input[type="submit"], input[type="radio"] {
     border-radius: 4px;
     border: none;
    
-}
-
-.button.edit {
-    background-color: #215e94;
-}
-
-.button.delete {
-    background-color: #d43733;
 }
 
 .button:hover, .nav-bar a:hover {
