@@ -35,13 +35,13 @@
             <td th:text="${'R$ ' + #numbers.formatDecimal(product.price, 1, 'POINT', 2, 'COMMA')}"></td>
             <td th:text="${product.isAvailable} ? 'DISPONÍVEL' : 'INDISPONÍVEL'"></td>
             <td>
-                <div class="management-record-button-container">
-                    <a class="button-anchor" th:href="@{/products/edit/} + ${product.id}">
+                <div id="record-management-container">
+                    <a th:href="@{/products/edit/} + ${product.id}">
                         <button class="button edit" onclick="event.stopPropagation();">
                             Editar
                         </button>
                     </a>
-                    <a class="button-anchor" th:href="@{/products/delete/} + ${product.id}">
+                    <a th:href="@{/products/delete/} + ${product.id}">
                         <button class="button delete"
                                 onclick="event.stopPropagation(); 
                                     return confirm('O item será deletado permanentemente. Deseja continuar?');">
@@ -53,19 +53,27 @@
         </tr>
         <tr class="description-row" style="display: none;">
             <td colspan="5">
-                <p style="font-size: small; color: DimGray;">Descrição do produto</p>
+                <p id="description">Descrição do produto</p>
                 <p th:text="${product.description}"></p>
             </td>
         </tr>
     </th:block>
     </tbody>
-    <tfoot>
-    <tr>
-        <th colspan="5" style="text-align: left;"
-            th:text="'Produtos cadastrados: ' + ${products.size()}"></th>
-    </tr>
-    </tfoot>
 </table>
+
+<div id="pagination-container">
+    <div>
+        <a th:classappend="${currPage <= 1 ? 'disabled' : ''}"
+           th:href="@{'/products?page=' + ${currPage - 1}}">Previous</a>
+    </div>
+    <div>
+        <p th:text="${currPage + ' de ' + totalPages}"></p>
+    </div>
+    <div>
+        <a th:classappend="${currPage >= totalPages ? 'disabled' : ''}"
+           th:href="@{'/products?page=' + ${currPage + 1}}">Next</a>
+    </div>
+</div>
 
 <div th:if="${notification}">
     <p class="notification" th:text="${notification}"></p>

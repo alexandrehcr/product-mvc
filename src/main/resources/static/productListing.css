@@ -14,7 +14,7 @@ th, td {
 }
 
 th {
-    padding: 10px 15px;
+    padding: 12px 15px;
 }
 
 td {
@@ -28,6 +28,12 @@ thead, tfoot {
 .description-row td {
     padding-left: 15px;
     background-color: #f2f2f2;
+    cursor: default;
+}
+
+#description {
+    font-size: small;
+    color: DimGray;
 }
 
 tbody > tr:hover {
@@ -35,10 +41,14 @@ tbody > tr:hover {
     cursor: pointer;
 }
 
-.management-record-button-container {
+#record-management-container {
     display: flex;
     flex-wrap: wrap;
     gap: 7px;
+}
+
+#record-management-container a {
+    text-decoration: none;
 }
 
 .button.edit {
@@ -51,4 +61,32 @@ tbody > tr:hover {
 
 button.edit, button.delete {
     padding: 8px;
+}
+
+#pagination-container {
+    margin-top: 30px;
+    display: flex;
+    gap: 50px;
+    justify-content: center;
+}
+
+#pagination-container p {
+    margin-top: 0;
+    color: #0B253E;
+}
+
+#pagination-container a {
+    color: black;
+    font-weight: bolder;
+    border-radius: 4px;
+    padding: 7px;
+    text-decoration: none;
+}
+
+.disabled {
+    pointer-events: none;
+    border: 0px !important;
+    color: gray !important;
+    border-color: gray !important;
+    text-decoration: none;
 }

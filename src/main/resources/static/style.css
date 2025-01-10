@@ -4,24 +4,24 @@ html {
 
 body {
     background-color: #f9f9f9;
+    padding-top: 30px; /* Space to acommodate the navigation bar */
 }
 
 .page-title {
     color: #0B253E;
 }
 
-input[type="submit"], input[type="radio"] {
-    cursor: pointer;
-}
-
 .nav-bar {
     background-color: #0B253E;
     overflow: hidden;
     display: flex;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
 }
 
 .nav-bar a {
-    float: left;
     color: #f2f2f2;
     text-align: center;
     padding: 10px 15px;
@@ -34,8 +34,8 @@ input[type="submit"], input[type="radio"] {
   color: black;
 }
 
-.button-anchor {
-    text-decoration: none;
+input[type="submit"], input[type="radio"] {
+    cursor: pointer;
 }
 
 .button {
@@ -50,7 +50,7 @@ input[type="submit"], input[type="radio"] {
 }
 
 .button:hover, .nav-bar a:hover {
-    background-color: #ddd;
+    background-color: #ddd !important;
     color: black;
 }
 
@@ -93,7 +93,7 @@ input[type="submit"], input[type="radio"] {
     padding: 15px;
     word-wrap: break-word;
     width: fit-content;
-    max-width: 200px;
+    max-width: 250px;
     opacity: 0;
     transition: opacity .5s ease-in-out;
     visibility: hidden;
