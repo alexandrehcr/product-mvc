@@ -4,6 +4,7 @@ import com.alexandrerocha.entity.dto.ProductDto;
 import com.alexandrerocha.entity.dto.ProductValidationDto;
 import com.alexandrerocha.exceptions.ProductNotFoundException;
 import com.alexandrerocha.service.ProductService;
+import jakarta.servlet.ServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.apache.coyote.BadRequestException;
@@ -14,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,17 +33,23 @@ public class ProductController {
     ProductService service;
 
     private static final Logger log = LoggerFactory.getLogger(ProductController.class);
-    
-    
+    private final Sort DFLT_SORT = Sort.by(Direction.DESC, "id"); 
+    private final short DFLT_PAGE_SIZE = 10;
+
     @GetMapping
     public String listProducts(
-            @PageableDefault(sort = "id", direction = Sort.Direction.DESC, size = 10, page = 1) 
-            Pageable pageable, 
+            @PageableDefault(size = DFLT_PAGE_SIZE, page = 1) // For the user it doesn't make sense to have 0-based indexed pages.
+            Pageable pageable,
             Model model) throws BadRequestException {
-        
-        // For the user it doesn't make sense to have 0-based indexed pages.
+
+        boolean hasUserSorted = true;
+        if (pageable.getSort().isUnsorted()) {
+            pageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), DFLT_SORT);
+            hasUserSorted = false;    
+        }
         var productsPage = service.getPage(pageable.previousOrFirst()); // adjust page # to 0-based
-        addPageDataToModel(model, productsPage);
+        addPageDataToModel(productsPage, model);
+        addSortDataToModel(productsPage, model, hasUserSorted);
         return "productListing";
     }
 
@@ -63,8 +71,9 @@ public class ProductController {
         }
         var createdProduct = service.saveProduct(registrationDto);
         
-        var productsPage = service.getPage(PageRequest.of(0, 10, Sort.by("price")));
-        addPageDataToModel(model, productsPage);
+        var productsPage = service.getPage(PageRequest.of(0, DFLT_PAGE_SIZE, DFLT_SORT));
+        addPageDataToModel(productsPage, model);
+        addSortDataToModel(productsPage, model, false);
         model.addAttribute("notification", "Produto cadastrado com ID " + createdProduct.id());
         
         response.setStatus(SC_CREATED);
@@ -112,9 +121,21 @@ public class ProductController {
         return "error/404";
     }
 
-    private void addPageDataToModel(Model model, Page<ProductDto> page) {
+    private void addPageDataToModel(Page<ProductDto> page, Model model) {
         model.addAttribute("currPage", page.getNumber() + 1); // adjust page # to 1-based
         model.addAttribute("totalPages", page.getTotalPages());
         model.addAttribute("products", page);
+    }
+
+    private void addSortDataToModel(Page<ProductDto> page, Model model, boolean hasUserSorted) {
+        // Optional is not being checked because there's a default sort.
+        Sort.Order sortOrder = page.getSort().stream().findFirst().get();
+        String currSort = sortOrder.getProperty();
+        String currDir = sortOrder.getDirection().name().toLowerCase();
+        String revDir = (sortOrder.isAscending() ? Direction.DESC : Direction.ASC).name().toLowerCase();
+        model.addAttribute("currSort", currSort);
+        model.addAttribute("currDir", currDir);
+        model.addAttribute("reverseDir", revDir);
+        model.addAttribute("hasUserSorted", hasUserSorted);
     }
 }

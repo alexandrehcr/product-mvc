@@ -20,20 +20,48 @@
 <table>
     <thead>
     <tr>
-        <th>ID</th>
-        <th>Nome</th>
-        <th>Preço</th>
-        <th>Disponibilidade</th>
-        <th></th>
+        <th class="tb-id">
+            <a th:href="@{'/products?page=' + ${currPage} + '&sort=id,' + ${reverseDir}}">
+                ID
+                <span class="sort-dir-icon"
+                      th:if="${hasUserSorted && currSort == 'id'}"
+                      th:text="${currDir == 'asc' ? '▲' : '▼'}"></span>
+            </a>
+        </th>
+        <th class="tb-name">
+            <a th:href="@{'/products?page=' + ${currPage} + '&sort=name,' + ${reverseDir}}">
+                Nome
+                <span class="sort-dir-icon"
+                      th:if="${hasUserSorted && currSort == 'name'}"
+                      th:text="${currDir == 'asc' ? '▲' : '▼'}"></span>
+            </a>
+        </th>
+        <th class="tb-price">
+            <a th:href="@{'/products?page=' + ${currPage} + '&sort=price,' + ${reverseDir}}">
+                Preço
+                <span class="sort-dir-icon"
+                      th:if="${hasUserSorted && currSort == 'price'}"
+                      th:text="${currDir == 'asc' ? '▲' : '▼'}"></span>
+            </a>
+        </th>
+        <th class="tb-availability">
+            <a th:href="@{'/products?page=' + ${currPage} + '&sort=isAvailable,' + ${reverseDir}}">
+                Disponibilidade
+                <span class="sort-dir-icon"
+                      th:if="${hasUserSorted && currSort == 'isAvailable'}"
+                      th:text="${currDir == 'asc' ? '▲' : '▼'}"></span>
+            </a>
+        </th>
+        <th class="tb-actions"></th>
     </tr>
     </thead>
     <tbody>
     <th:block th:each="product : ${products}">
         <tr onclick="toggleRow(this.nextElementSibling)" style="cursor: pointer;">
-            <td th:text="${product.id}"></td>
-            <td th:text="${product.name}"></td>
-            <td th:text="${'R$ ' + #numbers.formatDecimal(product.price, 1, 'POINT', 2, 'COMMA')}"></td>
-            <td th:text="${product.isAvailable} ? 'DISPONÍVEL' : 'INDISPONÍVEL'"></td>
+            <td class="tb-id" th:text="${product.id}"></td>
+            <td class="tb-name" th:text="${product.name}"></td>
+            <td class="tb-price" th:text="${'R$ ' + #numbers.formatDecimal(product.price, 1, 'POINT', 2, 'COMMA')}"></td>
+            <td class="tb-availability" th:text="${product.isAvailable} ? 'DISPONÍVEL' : 'INDISPONÍVEL'"></td>
             <td>
                 <div id="record-management-container">
                     <a th:href="@{/products/edit/} + ${product.id}">

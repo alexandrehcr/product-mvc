@@ -25,6 +25,38 @@ thead, tfoot {
     background-color: #E8F1F2;
 }
 
+th a {
+    text-decoration: none;
+    color: black;
+}
+
+.tb-id {
+    width: 55px;
+}
+
+.tb-name {
+    width: 500px;
+}
+
+.tb-price {
+    width: 150px;
+    padding-left: 30px;
+}
+
+.tb-availability {
+    width: 90;
+    padding-left: 10px;
+}
+
+.tb-actions {
+    width: 200px;
+    padding-right: 0px;
+}
+
+.sort-dir-icon {
+    font-size: small;
+}
+
 .description-row td {
     padding-left: 15px;
     background-color: #f2f2f2;
@@ -44,7 +76,7 @@ tbody > tr:hover {
 #record-management-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 7px;
+    gap: 4px 6px;
 }
 
 #record-management-container a {
