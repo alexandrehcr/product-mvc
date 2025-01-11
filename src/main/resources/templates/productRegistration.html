@@ -23,7 +23,7 @@
                 <div style="color: red; font-size: small; padding-bottom: 5px;"
                      th:each="err : ${#fields.errors('name')}" th:text="${err}"></div>
             </span>
-            <textarea id="prodName" maxlength="100"
+            <textarea class="input-field" id="prodName" maxlength="100"
                       placeholder="Nome do produto. Até 100 caracteres."
                       th:field="*{name}"></textarea>
         </div>
@@ -38,7 +38,7 @@
                 <div style="color: red; font-size: small; padding-bottom: 5px;"
                      th:each="err : ${#fields.errors('description')}" th:text="${err}"></div>
             </span>
-            <textarea id="prodDescription" maxlength="1000"
+            <textarea class="input-field" id="prodDescription" maxlength="1000"
                       placeholder="Descrição do produto. Até 1000 caracteres."
                       th:field="*{description}"></textarea>
         </div>
@@ -53,7 +53,7 @@
                 <div style="color: red; font-size: small; padding-bottom: 5px;"
                      th:each="err : ${#fields.errors('price')}" th:text="${err}"></div>
             </span>
-            <input id="prodPrice" type="number" min="0" step="0.01" placeholder="0"
+            <input class="input-field" id="prodPrice" type="number" min="0" step="0.01" placeholder="0"
                    th:field="*{price}" th:value="0.00">
         </div>
     </div>

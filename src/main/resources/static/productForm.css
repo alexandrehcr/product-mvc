@@ -18,6 +18,7 @@
 
 .row {
     padding-bottom: 15px;
+    padding-right: 25px;
 }
 
 .row:after {
@@ -31,12 +32,20 @@ label {
     display: inline-block;
 }
 
-input[type=text], input[type="number"], textarea {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  resize: vertical;
+.input-field {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    outline: none;
+    transition: border 0.2s ease-in-out;
+}
+
+.input-field:focus {
+    border: 1px solid #a0c4ff;
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.3);
+    transition: box-shadow 0.3s ease-in-out; 
 }
 
 input[type="submit"] {
@@ -44,8 +53,8 @@ input[type="submit"] {
 }
 
 @media screen and (max-width: 600px) {
-  .col-25, .col-75, input[type=submit] {
+    .col-25, .col-75, input[type=submit] {
     width: 100%;
     margin-top: 0;
-  }
+    }
 }

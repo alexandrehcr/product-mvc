@@ -39,18 +39,17 @@ th a {
 }
 
 .tb-price {
-    width: 150px;
+    width: 175px;
     padding-left: 30px;
 }
 
 .tb-availability {
-    width: 90;
+    max-width: 110px;
     padding-left: 10px;
 }
 
 .tb-actions {
     width: 200px;
-    padding-right: 0px;
 }
 
 .sort-dir-icon {
