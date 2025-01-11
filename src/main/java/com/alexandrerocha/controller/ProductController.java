@@ -35,7 +35,7 @@ public class ProductController {
     
     @GetMapping
     public String listProducts(
-            @PageableDefault(sort = "price", direction = Sort.Direction.ASC, size = 10, page = 1) 
+            @PageableDefault(sort = "id", direction = Sort.Direction.DESC, size = 10, page = 1) 
             Pageable pageable, 
             Model model) throws BadRequestException {
         
