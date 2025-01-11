@@ -16,7 +16,20 @@
 </div>
 
 <h1 class="page-title">Listagem de produtos</h1>
-
+<div id="items-selector-container">
+    <div id="items-selector">
+        <form th:action="@{/products}" method="get">
+            <label for="number-of-items">Itens por página:</label>
+            <select name="size" id="number-of-items" onchange="this.form.submit()">
+                <option th:value="10" th:selected="${size == null || size == 10}">10</option>
+                <option th:value="20" th:selected="${size == 20}">20</option>
+                <option th:value="30" th:selected="${size == 30}">30</option>
+                <option th:value="40" th:selected="${size == 40}">40</option>
+                <option th:value="50" th:selected="${size == 50}">50</option>
+            </select>
+        </form>
+    </div>
+</div>
 <table>
     <thead>
     <tr>

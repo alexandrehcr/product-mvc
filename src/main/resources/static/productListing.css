@@ -122,3 +122,20 @@ button.edit, button.delete {
     border-color: gray !important;
     text-decoration: none;
 }
+
+#items-selector-container {
+    position: relative;
+}
+
+#items-selector {
+    position: absolute;
+    right: 10px;
+    top: -25px;
+}
+
+#items-selector select {
+    padding: 5px 8px;
+    cursor: pointer;
+    outline: none;
+    border-radius: 4px;
+}

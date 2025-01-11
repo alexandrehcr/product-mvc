@@ -50,6 +50,7 @@ public class ProductController {
         var productsPage = service.getPage(pageable.previousOrFirst()); // adjust page # to 0-based
         addPageDataToModel(productsPage, model);
         addSortDataToModel(productsPage, model, hasUserSorted);
+        model.addAttribute("size", pageable.getPageSize());
         return "productListing";
     }
 
