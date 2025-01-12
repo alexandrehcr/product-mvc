@@ -205,6 +205,12 @@ class ProductControllerIntegrationTest {
                     .andExpect(status().isNotFound());
         }
     }
+
+    @Test
+    void whenGetRequestHome_thenRedirectProductListing() throws Exception {
+        mockMvc.perform(get("/"))
+                .andExpect(status().is3xxRedirection());
+    }
         
     // When the program is running, `GET /non-defined-url` returns the 404.html view and 404 status.
     @Test
